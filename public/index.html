@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta charset="utf-8">
+        <title>Node Expess Socket.io Server</title>
+        <link rel="stylesheet" type="/css/bootstrap.css" media="screen" title="no title" charset="utf-8">
+    </head>
+    <body>
+    	<div class="container">
+    		<div class="col-md-8 push-md-2">
+    		   <h2> Node Chat </h2>
+               <h3>Set Username</h3>
+               <h4>Current Username! <span class="label label-success current-username"></span></h4>
+                <p>
+
+                    <input class="username" type="text" name="username" value="">
+                </p>
+
+                <p>
+                    <input class="username-submit btn btn-success" type="button" name="username-submit" value="Set Username">
+
+                </p>
+               <ul class="users-list" >
+
+               </ul>
+    		   <ul class="messages-list" >
+
+    		   </ul>	
+    		   <form class="chat-form" action="index.html" method="post">
+    		   	 <div class="form-group">
+    		   	 	<textarea class="form-control" id="message-field" rows="8" cols="48"></textarea>
+    		   	 </div>
+    		   	 <button class="btn btn-primary pull-right" type="submit" name="button">Send</button>
+    		   </form>
+
+    		</div>
+
+    	</div>
+        <h2>Express Realtime Node Chat App</h2> 
+
+        <script src="js/jquery.js" charset="utf-8"></script> 
+        <script src="js/jquery-cookie.js" charset="utf-8"></script>
+        <script src="js/socket.io.js" charset="utf-8"></script>
+        <script src="js/main.js" charset="utf-8"></script>   
+    </body>
+
+</hrml>
