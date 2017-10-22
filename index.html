@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 50%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+    </style>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+    <form action="">
+      <input type="text" id="m" autocomplete="off" /><button>Send</button>
+    </form>
+
+    <div id="status"></div>
+
+  </body>
+    
+    <script src="http://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+     var socket = io();
+     var name = prompt("Please enter your name");
+     if (name!=null) {
+
+        socket.emit('name',name);
+
+     }
+
+     $('form').submit(function(){
+
+       socket.emit('chat message', $('#m').val());
+       $('#m').val('');
+       return false;
+     });
+      
+    // event for chat messages
+     socket.on('chat message', function(msg){
+
+       $('#messages').append($('<li>').text(msg));
+     }); // end of event 
+
+     $('#m').on("keyup", function (event) {
+
+        socket.emit("sender", {
+
+             name: name
+        });
+     });
+     
+     //event for checking which user is typing
+     socket.on("sender", function(data){
+
+        $('#status').html(data.name + " is typing");
+        setTimeout(function () {
+
+           $('#status').html('');
+        }, 3000);
+     });
+
+     // end of event
+
+     // start of event for finding all stored messages and retrieving them
+     socket.on("chatHistory", function(data){
+
+        $('#messages').find("li").remove();
+        $.each(data, function(){
+
+            $('#messages').append("<li>"+this.text+"</li>");
+        });
+     }); // end of event 
+
+    </script>
+</html>
+
